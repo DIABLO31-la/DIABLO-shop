@@ -1,106 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- MONETAG VERIFICATION CODE -->
+    <meta name="monetag" content="9a9d57b2c2e3b92c43d3e7a14a3e66ad">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diablo Global Account Shop</title>
+    <title>GRAND GIVEAWAY! 🎁</title>
     <style>
-        body { background: #0f172a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .header { padding: 40px 0; background: linear-gradient(to bottom, #1e293b, #0f172a); border-bottom: 2px solid #38bdf8; }
-        .container { max-width: 900px; margin: auto; }
-        .admin-panel { background: #1e293b; padding: 25px; border-radius: 15px; margin: 20px 0; border: 1px solid #38bdf8; }
-        input { width: 80%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; }
-        button { background: #38bdf8; color: #0f172a; font-weight: bold; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #7dd3fc; transform: translateY(-2px); }
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; position: relative; text-align: left; }
-        .card h3 { margin-top: 0; color: #f8fafc; }
-        .price { color: #4ade80; font-size: 1.2rem; font-weight: bold; margin: 15px 0; }
-        .delete-btn { background: #ef4444; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; cursor: pointer; border: none; margin-top: 10px; }
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: #1e1e1e;
+            padding: 40px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            border: 2px solid #00d4ff;
+            max-width: 450px;
+            margin: 20px;
+        }
+        h1 { 
+            color: #00d4ff; 
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p { 
+            font-size: 1.2rem; 
+            line-height: 1.6;
+            color: #cccccc;
+        }
+        .highlight {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .btn {
+            background: linear-gradient(135deg, #00d4ff, #0055ff);
+            color: white;
+            padding: 20px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 22px;
+            display: inline-block;
+            margin-top: 25px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+            filter: brightness(1.1);
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>DIABLO GLOBAL SHOP</h1>
-    <p style="color: #94a3b8;">Premium Gaming Accounts & Services</p>
-</div>
-
-<div class="container">
-    <div class="admin-panel">
-        <h3>List New Item</h3>
-        <input type="text" id="itemName" placeholder="Account Name (e.g. Level 100 Mage)">
-        <input type="text" id="itemPrice" placeholder="Price (e.g. $49.99)">
-        <button onclick="postItem()">List It Now</button>
-    </div>
-
-    <div class="shop-grid" id="shopDisplay">
-        <!-- Items will load here -->
-    </div>
-</div>
-
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
-
-<script>
-    // Your Firebase Config
-    const firebaseConfig = {
-        apiKey: "AIzaSyBpOMXqyJhL5VVA7-cwPc5ptZks8HXCJJ4",
-        authDomain: "diablo-global-shop.firebaseapp.com",
-        databaseURL: "https://diablo-global-shop-default-rtdb.europe-west1.firebasedatabase.app/",
-        projectId: "diablo-global-shop",
-        storageBucket: "diablo-global-shop.firebasestorage.app",
-        messagingSenderId: "851658516692",
-        appId: "1:851658516692:web:70ba168ca456a0e2267341"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // Function to Post Item
-    function postItem() {
-        const name = document.getElementById('itemName').value;
-        const price = document.getElementById('itemPrice').value;
-
-        if (name && price) {
-            db.ref('items').push({
-                name: name,
-                price: price
-            }).then(() => {
-                document.getElementById('itemName').value = "";
-                document.getElementById('itemPrice').value = "";
-                alert("Success! Item listed in shop.");
-            });
-        } else {
-            alert("Please fill both fields!");
-        }
-    }
-
-    // Function to Load Items
-    db.ref('items').on('value', (snapshot) => {
-        const display = document.getElementById('shopDisplay');
-        display.innerHTML = "";
-        const data = snapshot.val();
+    <div class="container">
+        <h1>🎁 BIG GIVEAWAY! 🎁</h1>
+        <p>We are celebrating our channel growth!</p>
+        <p>Big prizes will be distributed when we reach <br><span class="highlight">500 SUBSCRIBERS</span></p>
+        <p>Don't miss your chance!</p>
         
-        for (let id in data) {
-            display.innerHTML += `
-                <div class="card">
-                    <h3>${data[id].name}</h3>
-                    <div class="price">${data[id].price}</div>
-                    <button class="delete-btn" onclick="deleteItem('${id}')">Remove</button>
-                </div>
-            `;
-        }
-    });
-
-    // Function to Delete Item
-    function deleteItem(id) {
-        if(confirm("Are you sure?")) {
-            db.ref('items/' + id).remove();
-        }
-    }
-</script>
+        <!-- REPLACE THE LINK BELOW WITH YOUR LINK MESSENGER CHANNEL LINK -->
+        <a href="https://link.tm/YOUR_CHANNEL_LINK" class="btn">JOIN & SUBSCRIBE</a>
+        
+        <div class="footer">
+            * Subscription is required to participate in the giveaway.
+        </div>
+    </div>
 
 </body>
 </html>
